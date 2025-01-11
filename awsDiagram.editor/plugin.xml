@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated awsDiagram -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="awsDiagram.presentation.AwsDiagramModelWizardID"
+            name="%_UI_AwsDiagramModelWizard_label"
+            class="awsDiagram.presentation.AwsDiagramModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/AwsDiagramModelFile.gif">
+         <description>%_UI_AwsDiagramModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated awsDiagram -->
+      <editor
+            id="awsDiagram.presentation.AwsDiagramEditorID"
+            name="%_UI_AwsDiagramEditor_label"
+            icon="icons/full/obj16/AwsDiagramModelFile.gif"
+            extensions="awsdiagram"
+            class="awsDiagram.presentation.AwsDiagramEditor"
+            contributorClass="awsDiagram.presentation.AwsDiagramActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

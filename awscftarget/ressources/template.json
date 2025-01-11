@@ -1,0 +1,119 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Example template for AWS CloudFormation with RDS, VPC, and Subnet",
+  "Parameters": [
+    {
+      "Name": "InstanceType",
+      "Type": "String",
+      "Description": "The EC2 instance type",
+      "AllowedValues": "t2.micro",
+      "DefaultValue": "t2.micro",
+      "constraintDescription": "Must be a valid EC2 instance type"
+    }
+  ],
+  "Resources": [
+    {
+      "Type": "AWS::EC2::Instance",
+      "Properties": [
+        {
+          "Key": "InstanceType",
+          "Value": "t2.micro"
+        },
+        {
+          "Key": "KeyName",
+          "Value": "MyKeyPair"
+        },
+        {
+          "Key": "ImageId",
+          "Value": "ami-0abcd1234abcd1234"
+        }
+      ],
+      "SecurityGroup": [
+        {
+          "GroupName": "DefaultSG",
+          "Description": "Default security group",
+          "SecurityGroupIngress": [
+            {
+              "IpProtocol": "tcp",
+              "FromPort": "22",
+              "ToPort": "22",
+              "CidrIp": "0.0.0.0/0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": [
+        {
+          "Key": "DBInstanceClass",
+          "Value": "db.t2.micro"
+        },
+        {
+          "Key": "Engine",
+          "Value": "mysql"
+        },
+        {
+          "Key": "AllocatedStorage",
+          "Value": "20"
+        }
+      ]
+    },
+    {
+      "Type": "AWS::S3::Bucket",
+      "Properties": [
+        {
+          "Key": "BucketName",
+          "Value": "my-sample-bucket"
+        },
+        {
+          "Key": "VersioningConfiguration",
+          "Value": "true"
+        }
+      ]
+    },
+    {
+      "Type": "AWS::EC2::VPC",
+      "Properties": [
+        {
+          "Key": "CidrBlock",
+          "Value": "10.0.0.0/16"
+        },
+        {
+          "Key": "VpcId",
+          "Value": "vpc-12345"
+        }
+      ],
+      "Subnets": [
+        {
+          "CidrBlock": "10.0.1.0/24",
+          "SubnetId": "subnet-67890"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "InstanceId",
+      "Value": "Ref: EC2Instance",
+      "Description": "The instance ID of the EC2 instance"
+    },
+    {
+      "Name": "BucketName",
+      "Value": "Ref: S3Bucket",
+      "Description": "The name of the S3 bucket"
+    },
+    {
+      "Name": "DBInstanceId",
+      "Value": "Ref: RDSInstance",
+      "Description": "The ID of the RDS instance"
+    },
+    {
+      "Name": "VpcId",
+      "Value": "Ref: VPC",
+      "Description": "The ID of the VPC"
+    }
+  ]
+}
+
